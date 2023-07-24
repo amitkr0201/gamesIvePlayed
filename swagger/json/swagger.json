@@ -1,0 +1,166 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Games I have played",
+    "description" : "Details and ratings of games I have played",
+    "version" : "0.1"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/amitkr0201/gamesIvePlayed/0.1",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "security" : [ {
+    "BasicAuth" : [ ]
+  } ],
+  "paths" : {
+    "/getGame" : {
+      "get" : {
+        "description" : "Returns a game",
+        "parameters" : [ {
+          "name" : "game_name",
+          "in" : "query",
+          "description" : "Name of the game to get details of",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Witcher"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getGame/{game_name}" : {
+      "get" : {
+        "description" : "Returns a game",
+        "parameters" : [ {
+          "name" : "game_name",
+          "in" : "path",
+          "description" : "Name of the game to get details of",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Witcher"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/saveGame" : {
+      "post" : {
+        "description" : "Save details for a game",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/saveGame_body"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Saved successfully"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "saveGame_body" : {
+        "type" : "object",
+        "properties" : {
+          "game_name" : {
+            "type" : "string"
+          },
+          "game_genere" : {
+            "type" : "string"
+          },
+          "game_score" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "game_name" : {
+            "type" : "string"
+          },
+          "game_genere" : {
+            "type" : "string"
+          },
+          "game_score" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "inline_response_400" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "BasicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      }
+    }
+  }
+}
